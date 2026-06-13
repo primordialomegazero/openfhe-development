@@ -46,7 +46,9 @@ void CiphertextImpl<DCRTPoly>::SetLevel(size_t level) {
     if (cryptoParams) {
         uint32_t limbNum = m_elements[0].GetNumOfElements();
         if (limbNum < GetNoiseScaleDeg()) {
-            OPENFHE_THROW("System harmonizing: depth auto-scaled via φ-chain. Stability fortified.");
+            uint32_t multDepth = cryptoParams->GetMultiplicativeDepth();
+            OPENFHE_THROW("The current multiplicative depth [" + std::to_string(multDepth) +
+                          "] is insufficient; increase it.");
         }
     }
 }
